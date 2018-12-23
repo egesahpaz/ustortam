@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function validateForm() {
+  hataTemizle();
+
+  var isim = document.querySelector("#name").value;
+  if (isim == "") {
+    document.getElementById("hata1").textContent = "Name must be filled out";
+    return false;
+  }
+
+  var eposta = document.querySelector("#email").value;
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g.test(eposta)) {
+    document.getElementById("hata2").textContent = "Email biçimi yanlış!";
+    return false;
+  }
+
+  var sayilar = document.querySelector("#sayisal").value;
+  var sayilarInt = parseInt(sayilar);
+  if (sayilarInt != sayilar || sayilar.includes(".") || sayilar.includes(" ")) {
+    document.getElementById("hata3").textContent = "Sadece rakam girin!";
+    return false;
+  }
+
+  var basamak = document.querySelector("#basamakli").value;
+  var basamakInt = parseInt(basamak);
+  if (basamakInt != basamak || basamak.includes(".") || basamak.includes(" ") || basamak.length != 12) {
+    document.getElementById("hata4").textContent = "Sadece 12 basamaklı bir sayı girin!";
+    return false;
+  }
+
+  var harf = document.querySelector("#alfa").value;
+  if (!/^[a-zA-Z]*$/g.test(harf) || harf == "") {
+    document.getElementById("hata5").textContent = "Sadece harf girin!";
+    return false;
+  }
+
+  var harfMax = document.querySelector("#max30").value;
+  if (!/^[a-zA-Z]*$/g.test(harfMax) || harfMax == "" || harfMax.length > 30) {
+    document.getElementById("hata6").textContent = "En fazla 30 harfli bir yazı girin!";
+    return false;
+  }
+
+  var uc = document.querySelector("#uckelime").value;
+  var array = uc.split(' ');
+  if (array.length != 3 || array.includes("")) {
+    document.getElementById("hata7").textContent = "Sadece üç kelime girin!";
+    return false;
+  }
+
+  var pass = document.querySelector("#password").value;
+  if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g.test(pass)) {
+    document.getElementById("hata8").textContent = "Şifre biçimi yanlış!";
+    return false;
+  }
+}
+
+function hataTemizle(){
+  var x = document.getElementsByClassName("hatalar");
+  var i;
+  for (i = 0; i < x.length; i++) {
+    x[i].textContent = " ";
+  }
+}
+</script>
+</head>
+<body>
+
+<form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
+  Aşağıdaki hiçbir input boş olmamalı: <br>
+  
+
+  <table style="width:80%">
+  <tr>
+    <td>Boş olmamalı: </td>
+    <td><input type="text" id="name"></td>
+    <td id="hata1" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>E-mail (Kurallara uygun email): </td>
+    <td><input type="text" id="email"></td>
+    <td id="hata2" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>Sadece sayısal: </td>
+    <td><input type="text" id="sayisal"></td>
+    <td id="hata3" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>Sadece sayısal olan ve 12 basamak uzunluğundaki sayi: </td>
+    <td><input type="text" id="basamakli"></td>
+    <td id="hata4" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>Sadece harf (a..z veya A..Z): </td>
+    <td><input type="text" id="alfa"></td>
+    <td id="hata5" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>Sadece harf ve en fazla 30 uzunlukta olan string: </td>
+    <td><input type="text" id="max30"></td>
+    <td id="hata6" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>3 kelimeden oluşan string: </td>
+    <td><input type="text" id="uckelime"></td>
+    <td id="hata7" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  <tr>
+    <td>En az 1 büyük harf, en az 1 küçük harf, en az bir rakam ve en az 1 noktalama işareti içeren ve en az 8 uzunluğunda olan metin: </td>
+    <td><input type="text" id="password"></td>
+    <td id="hata8" class="hatalar" style="color: red; padding-left: 3%; width: 35%"></td>
+  </tr>
+  
+
+</table>
+
+<br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
